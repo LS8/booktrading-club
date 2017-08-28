@@ -31,7 +31,6 @@ app.get('/', function (req, res) { // let frontend handle client side routing
 // Use Routes
 // app.use('/api', routes);
 
-
 app.listen(config.port, () => {
   console.log(`Server running on port ${config.port}`);
 });
