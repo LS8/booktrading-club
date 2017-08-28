@@ -31,6 +31,10 @@ const config = require('./config');
 // Use Routes
 // app.use('/api', routes);
 
+app.get('*', (req, res) => {
+  res.write('<p>Welcome</p>');
+})
+
 app.listen(config.port, () => {
   console.log(`Server running on port ${config.port}`);
 });
