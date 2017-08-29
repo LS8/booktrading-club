@@ -1,26 +1,19 @@
 const express = require('express');
+const path = require('path');
+const bodyparser = require('body-parser');
 const app = express();
 const config = require('./config');
-const path = require('path');
-const routes = require('./routes');
-const { Client } = require('pg');
-
-const client = new Client({
-  connectionString: config.dbAddress,
-});
-client.connect();
-
+const routes = require('./routes/index');
 
 // Common Middleware uncomment and npm install when required
 
 // const cors = require('cors');
-// const bodyparser = require('body-parser');
 
+app.use(bodyparser.json());
 // const passport = require('passport');
 // app.use(passport.initialize());
 // config.passportStrategy(passport);
 
-// app.use(bodyparser.json());
 // app.use(cors());
 
 // Set Static Folder
