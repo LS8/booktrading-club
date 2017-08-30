@@ -25,12 +25,16 @@ const User = sequelize.define('user', {
   password: {
     type: Sequelize.STRING,
     allowNull: false
-  }
+  },
 },
   {
     updatedAt: false
-  }
+  },
 );
+
+User.prototype.validPassword = (providedPassword, user) => {
+  return providedPassword== user.password;
+};
 
 sequelize.sync()
   .then( () => {
