@@ -1,6 +1,5 @@
 const express = require('express');
 const Router = express.Router();
-
 const User = require('../models/user');
 
 const loggedIn = (req) => {
