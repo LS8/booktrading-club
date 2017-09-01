@@ -8,8 +8,8 @@ const routes = require('./routes/index');
 
 // Common Middleware uncomment and npm install when required
 
-// const cors = require('cors');
-// app.use(cors());
+const cors = require('cors');
+app.use(cors());
 
 app.use(bodyparser.json());
 
