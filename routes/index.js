@@ -49,4 +49,24 @@ Router.post('/register', (req, res) => {
   }
 );
 
+Router.get('/logout', (req, res) => {
+  res.clearCookie('user');
+  res.redirect('/api/profile');
+})
+
+Router.get('/session', (req, res) => {
+  req.session.destroy();
+  res.redirect('/api/profile');
+})
+
+
+Router.get('/profile', (req, res) => {
+  console.log(req.session);
+  if (loggedIn(req)) {
+    res.json({ success: true, user: req.session.user });
+  } else {
+    res.json({ success: false, msg: 'User is not logged in'});
+  }
+});
+
 module.exports = Router;
