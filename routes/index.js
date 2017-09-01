@@ -26,19 +26,26 @@ Router.post('/login', (req ,res) => {
   });
 });
 
-Router.post('/signup', (req, res) => {
+Router.post('/register', (req, res) => {
   User.create({
     username: req.body.username,
     email: req.body.email,
     password: req.body.password
   })
     .then(user => {
-      console.log(user);
-      res.end();
+      req.session.user = user.dataValues;
+      res.json({ success: true, msg: 'Registration was successfull', status: 0 });
     })
     .catch(err => {
-      console.log(err);
-      res.end();
+      console.log(err.original.code);
+      if (parseInt(err.original.code) === 23505 ) {
+        if (err.fields.username) {
+          res.json({ success: false, msg: 'Username is already registered', status: 1 });
+        } else if (err.fields.email) {
+          res.json({ success: false, msg: 'Email is already registered', status: 2 });
+        }
+      }
+      res.json({ success: false, msg: 'Error', status: 3, err: err });
     })
   }
 );
