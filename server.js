@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 // Set Static Folder
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) { // let frontend handle client side routing
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
