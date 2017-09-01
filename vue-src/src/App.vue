@@ -1,8 +1,12 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
-  </div>
+<v-app id="app">
+  <navbar></navbar>
+  <main>
+    <v-container>
+      <router-view id="content-wrapper"></router-view>
+    </v-container>
+  </main>
+</v-app>
 </template>
 
 <script>
