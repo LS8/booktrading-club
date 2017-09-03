@@ -19,7 +19,7 @@ export default {
     })
     .then(onSuccess, onError);
   },
-  logOut() {
+  logout() {
     localStorage.clear();
   },
   loggedIn() {
