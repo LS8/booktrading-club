@@ -50,6 +50,7 @@ export default {
         .then( data => {
           localStorage.setItem('user', JSON.stringify(data.user));
           var user = JSON.parse(localStorage.getItem('user'));
+          this.$store.commit('login');
           this.$router.push('home');
         });
     }
