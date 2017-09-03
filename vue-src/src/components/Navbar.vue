@@ -20,19 +20,14 @@
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat to='/home'>Home</v-btn>
-      <v-btn flat to='/login'>Login</v-btn>
-      <v-btn @click.native="onLogout" flat>Logout</v-btn>
-      <v-btn flat to='/register'>Register</v-btn>
+      <v-btn v-if="!loggedIn" flat to='/login'>Login</v-btn>
+      <v-btn v-if="loggedIn" flat to='/profile'>Profile</v-btn>
+      <v-btn v-if="loggedIn"@click.native="onLogout" flat>Logout</v-btn>
+      <v-btn v-if="!loggedIn" flat to='/register'>Register</v-btn>
     </v-toolbar-items>
   </v-toolbar>
-
-  <ul>
-    <li>fdsfsf </li>
-    <li>dfsf </li>
-    <li>dfsfs </li>
-  </ul>
-
 </div>
+
 </template>
 
 <script>
@@ -43,11 +38,17 @@ export default {
   data() {
     return {
       drawer: null,
-      auth: AuthService
+    }
+  },
+  computed: {
+    loggedIn () {
+      return this.$store.getters.auth;
     }
   },
   methods: {
     onLogout () {
+      AuthService.logout();
+      this.$store.commit('logout');
       this.$router.push('/home');
     }
   }
@@ -58,9 +59,5 @@ export default {
   #title {
     text-decoration: none;
     color: rgba(0,0,0,0.870588);
-  }
-  ul {
-    margin-top: 80px;
-    position: absolute;
   }
 </style>
