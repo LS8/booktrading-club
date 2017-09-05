@@ -68,9 +68,43 @@ export default {
   },
   methods: {
     onSubmit () {
-      console.log(this.username, this.password, this.confirmPassword);
       AuthService.register({ username: this.username, email: this.email, password: this.password })
-        .then( data => console.log(data))
+        .then( data => {
+          try {
+            this.handleSuccess(data);
+          }
+          catch (e) {
+            this.handleRejection(e, data);
+          }
+        });
+    },
+    handleSuccess(data) {
+      if (!data.success) throw new Error('Failed to register');
+      this.$swal({
+        title: 'Success',
+        text: 'Successfully registered, you can now login',
+        type: 'success',
+        timer: 1000,
+        showConfirmButton: false
+        }).then(
+          function() {},
+          function (dismiss) {
+            this.$router.push('login');
+          }.bind(this)
+          )
+    },
+    handleRejection(e, data) {
+      if (data.status === 1) this.username = '';
+      if (data.status === 2) this.email = '';
+      this.password = '';
+      this.confirmPassword = '';
+      this.$swal({
+        title: 'Error',
+        text: data.msg,
+        type: 'error',
+        timer: 1000,
+        showConfirmButton: false
+      }).catch(this.$swal.noop);
     }
   }
   

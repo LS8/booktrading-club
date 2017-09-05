@@ -49,6 +49,13 @@ export default {
     onLogout () {
       AuthService.logout();
       this.$store.commit('logout');
+      this.$swal({
+        title: 'Info',
+        text: 'You are now logged out',
+        type: 'info',
+        timer: 1000,
+        showConfirmButton: false
+      }).catch(this.$swal.noop);
       this.$router.push('/home');
     }
   }

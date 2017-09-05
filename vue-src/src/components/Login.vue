@@ -60,14 +60,29 @@ export default {
       localStorage.setItem('user', JSON.stringify(data.user));
       const user = JSON.parse(localStorage.getItem('user'));
       this.$store.commit('login');
-      this.$router.push('home');
-      this.$swal(data.msg)
+      this.$swal({
+        title: 'Success',
+        text: 'Successfully logged in, you are now being redirected',
+        type: 'success',
+        timer: 1000,
+        showConfirmButton: false
+        }).then(
+          function() {},
+          function (dismiss) {
+            this.$router.push('home');
+          }.bind(this)
+          )
     },
     handleRejection(e, data) {
-      console.log(e)
       if (data.status === 1) this.username = '';
       this.password = '';
-      this.$swal(data.msg)
+      this.$swal({
+        title: 'Error',
+        text: data.msg,
+        type: 'error',
+        timer: 1000,
+        showConfirmButton: false
+      }).catch(this.$swal.noop);
     }
   }
   
