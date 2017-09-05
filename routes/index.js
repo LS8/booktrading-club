@@ -36,15 +36,15 @@ Router.post('/register', (req, res) => {
       res.json({ success: true, msg: 'Registration was successfull', status: 0 });
     })
     .catch(err => {
-      console.log(err.original.code);
       if (parseInt(err.original.code) === 23505 ) {
         if (err.fields.username) {
           res.json({ success: false, msg: 'Username is already registered', status: 1 });
         } else if (err.fields.email) {
           res.json({ success: false, msg: 'Email is already registered', status: 2 });
         }
+      } else {
+        res.json({ success: false, msg: 'Error', status: 3, err: err });
       }
-      res.json({ success: false, msg: 'Error', status: 3, err: err });
     })
   }
 );
