@@ -8,10 +8,12 @@ import Vuetify from 'vuetify'
 import App from './App'
 import router from './router'
 import store from './store'
+import VueSwal from './swal'
 
 Vue.use(Vuex)
 Vue.use(VueResource)
 Vue.use(Vuetify)
+Vue.use(VueSwal)
 Vue.config.productionTip = false
 
 
