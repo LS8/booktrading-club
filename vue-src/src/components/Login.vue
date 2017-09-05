@@ -48,11 +48,26 @@ export default {
     onSubmit () {
       AuthService.login({ username: this.username, password: this.password })
         .then( data => {
-          localStorage.setItem('user', JSON.stringify(data.user));
-          const user = JSON.parse(localStorage.getItem('user'));
-          this.$store.commit('login');
-          this.$router.push('home');
+          try {
+            this.handleSuccess(data);
+          }
+          catch (e) {
+            this.handleRejection(e, data);
+          }
         });
+    },
+    handleSuccess(data) {
+      localStorage.setItem('user', JSON.stringify(data.user));
+      const user = JSON.parse(localStorage.getItem('user'));
+      this.$store.commit('login');
+      this.$router.push('home');
+      this.$swal(data.msg)
+    },
+    handleRejection(e, data) {
+      console.log(e)
+      if (data.status === 1) this.username = '';
+      this.password = '';
+      this.$swal(data.msg)
     }
   }
   
