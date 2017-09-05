@@ -49,9 +49,17 @@
 <script>
 
 import AuthService from '../services/AuthService';
+import store from '../store.js'
 
 
 export default {
+  beforeRouteEnter (to, from, next) {
+    if (!store.getters.auth) {
+      next();
+    } else {
+      next('/home');
+    }
+  },
   data () {
     return {
       username: '',
