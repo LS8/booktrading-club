@@ -4,7 +4,8 @@ const bodyparser = require('body-parser');
 const session = require('express-session');
 const app = express();
 const config = require('./config');
-const routes = require('./routes/index');
+const userRoutes = require('./routes/user');
+const bookRoutes = require('./routes/book');
 
 // Common Middleware uncomment and npm install when required
 
@@ -39,7 +40,8 @@ app.get('/', function (req, res) { // let frontend handle client side routing
 });
 
 // Use Routes
-app.use('/api', routes);
+app.use('/api', userRoutes);
+app.use('/api', bookRoutes);
 
 app.listen(config.port, () => {
   console.log(`Server running on port ${config.port}`);
