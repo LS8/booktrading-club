@@ -5,16 +5,17 @@ const Router = express.Router();
 
 Router.post('/searchBook', (req ,res) => {
   const searchTerm = req.body.searchTerm;
+  const results = 10;
 
   let options = {
-    url: `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=1&projection=lite`,
+    url: `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=${results}&projection=lite`,
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   };
 
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      res.json({ success: true, info: JSON.parse(body) });
+      res.json({ success: true, info: JSON.parse(body).items });
     } else {
       res.json({ success: false, info: JSON.parse(body).error.errors });
     }
