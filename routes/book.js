@@ -1,7 +1,7 @@
 const request = require('request');
 const express = require('express');
 const Router = express.Router();
-// const User = require('../models/user');
+const Book = require('../models/book');
 
 Router.post('/searchBook', (req ,res) => {
   const searchTerm = req.body.searchTerm;
@@ -23,7 +23,24 @@ Router.post('/searchBook', (req ,res) => {
 });
 
 Router.post('/addBook', (req, res) => {
-  }
-);
+  const title = req.body.title;
+  const ownerId = req.body.userId;
+  const author = req.body.author;
+
+  Book.create({
+    title: title,
+    ownerId: ownerId,
+    author: author.join(', ') || ''
+  })
+    .then(book => {
+      res.json({ success: true, msg: 'Book added'});
+    })
+    .catch(err => {
+      res.json({ success: false, msg: 'Error', err: err });
+    })
+
+  // console.log(title, ownerId, author);
+  // res.json({ res: [title, ownerId, author]})
+});
 
 module.exports = Router;
