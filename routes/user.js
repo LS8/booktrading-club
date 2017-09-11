@@ -20,7 +20,7 @@ Router.post('/login', (req ,res) => {
       res.json({ success: false, msg: 'Wrong password', status: 2 });
     } else {
       req.session.user = user.dataValues;
-      res.json({ success: true, msg: 'Login was successfull', status: 0, user: {username: user.username, email: user.email} });
+      res.json({ success: true, msg: 'Login was successfull', status: 0, user: {username: user.username, email: user.email, id: user.id } });
     }
   });
 });
