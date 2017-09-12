@@ -87,7 +87,15 @@ export default {
   },
   methods: {
     addToMyBooks (book) {
-      console.log(book)
+      BookService.addBook(book.title, book.authors, this.$store.getters.user)
+        .then( data => {
+          try {
+            console.log(data);
+          }
+          catch (e) {
+            console.log(e);
+          }
+        })
     },
     onSubmit () {
       this.results = [];
