@@ -10,6 +10,14 @@ export default {
     })
     .then(onSuccess, onError);
   },
+  addBook(title, author, userId) {
+    return Vue.http.post(`${url}/api/addBook`, {
+      title: title,
+      author: author,
+      userId: userId
+    })
+    .then(onSuccess, onError);
+  }
 }
 
 const onSuccess = (response) => {
