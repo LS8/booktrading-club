@@ -38,9 +38,6 @@ Router.post('/addBook', (req, res) => {
     .catch(err => {
       res.json({ success: false, msg: 'Error', err: err });
     })
-
-  // console.log(title, ownerId, author);
-  // res.json({ res: [title, ownerId, author]})
 });
 
 module.exports = Router;
