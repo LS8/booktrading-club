@@ -19,6 +19,10 @@ export default {
       imageLink: imageLink
     })
     .then(onSuccess, onError);
+  },
+  getBooksByUser(userId) {
+    return Vue.http.get(`${url}/api/books/${userId}`)
+      .then(onSuccess, onError);
   }
 }
 
