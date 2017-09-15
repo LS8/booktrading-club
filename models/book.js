@@ -23,6 +23,12 @@ const Book = sequelize.define('book', {
   author: {
     type: Sequelize.STRING,
   },
+  previewLink: {
+    type: Sequelize.STRING,
+  },
+  imageLink: {
+    type: Sequelize.STRING
+  }
 },
   {
     updatedAt: false
