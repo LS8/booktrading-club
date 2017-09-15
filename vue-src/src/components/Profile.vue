@@ -125,6 +125,11 @@ export default {
     }
   },
   methods: {
+    removeBook(book, index) {
+      console.log(book)
+      this.books.splice(index, 1);
+      /* BookService.removeBook(bookId, userId) */
+    },
     addToMyBooks (book) {
       this.books.push({
         author: book.authors ? book.authors.join(", ") : "unknown",
