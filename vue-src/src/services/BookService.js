@@ -10,11 +10,13 @@ export default {
     })
     .then(onSuccess, onError);
   },
-  addBook(title, author, userId) {
+  addBook(title, author, userId, previewLink, imageLink) {
     return Vue.http.post(`${url}/api/addBook`, {
       title: title,
       author: author,
-      userId: userId
+      userId: userId,
+      previewLink: previewLink,
+      imageLink: imageLink
     })
     .then(onSuccess, onError);
   }
