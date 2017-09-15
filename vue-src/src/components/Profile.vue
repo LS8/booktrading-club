@@ -126,7 +126,13 @@ export default {
   },
   methods: {
     addToMyBooks (book) {
-      BookService.addBook(book.title, book.authors, this.$store.getters.user)
+      this.books.push({
+        author: book.authors ? book.authors.join(", ") : "unknown",
+        title: book.title,
+        previewLink: book.previewLink,
+        imageLink: book.imageLinks.smallThumbnail
+      });
+      BookService.addBook(book.title, book.authors, this.$store.getters.user, book.previewLink, book.imageLinks.smallThumbnail)
         .then( data => {
           try {
             console.log(data);
