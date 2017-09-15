@@ -98,6 +98,19 @@ export default {
       next('/login');
     }
   },
+  created () {
+    BookService.getBooksByUser(this.$store.getters.user)
+      .then( data => {
+        try {
+          const books = data.books;
+          this.books = books;
+          console.log(this.books);
+        }
+        catch (e) {
+          console.log(e);
+        }
+      })
+  },
   data () {
     return {
       searchTerm: '',
