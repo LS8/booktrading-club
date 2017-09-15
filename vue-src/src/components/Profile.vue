@@ -135,12 +135,18 @@ export default {
       BookService.addBook(book.title, book.authors, this.$store.getters.user, book.previewLink, book.imageLinks.smallThumbnail)
         .then( data => {
           try {
-            console.log(data);
+            this.onAddSuccess(data);
           }
           catch (e) {
-            console.log(e);
+            this.onAddError(e, data);
           }
         })
+    },
+    onAddSuccess (data) {
+      console.log(data)
+    },
+    onAddError (error, data) {
+      console.log(error, data)
     },
     onSubmit () {
       this.results = [];
@@ -148,22 +154,22 @@ export default {
       BookService.searchBook(this.searchTerm)
         .then( data => {
           try {
-            this.handleSuccess(data);
+            this.onSubmitSuccess(data);
           }
           catch (e) {
-            this.handleRejection(e, data);
+            this.onSubmitError(e, data);
           }
 
         });
     },
-    handleSuccess (data) {
+    onSubmitSuccess (data) {
       this.searchPending = false;
       data.info.forEach((book) => {
         book.volumeInfo.id = book.id;
         this.results.push(book.volumeInfo);
       })
     },
-    handleRejection (error, data) {
+    onSubmitError (error, data) {
       console.log(error, data)
     }
   }
