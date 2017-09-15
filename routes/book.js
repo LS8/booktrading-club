@@ -32,7 +32,7 @@ Router.post('/addBook', (req, res) => {
   Book.create({
     title: title,
     ownerId: ownerId,
-    author: author.join(', ') || '',
+    author: typeof author === "object" ? author.join(', ') : '',
     imageLink: imageLink,
     previewLink: previewLink
   })
