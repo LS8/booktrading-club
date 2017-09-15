@@ -1,10 +1,35 @@
 <template>
 <div>
-  <h1>Profile</h1>
   <v-layout row wrap>
-
     <v-flex xs12 sm6>
-      <h2>Your books</h2>
+      <h2>My books</h2>
+        <v-list v-if="books.length">
+          <v-list-tile avatar class="tile" v-for="(book, index) in books" v-bind:key="book.id">
+              <v-list-tile-avatar>
+              <a :href="book.previewLink" target="_blank">
+              <img v-bind:src="book.imageLink"/>
+              </a>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title v-if="book.author">
+                <a :href="book.previewLink" target="_blank">
+                {{book.title}} ({{book.author}})
+                </a>
+              </v-list-tile-title>
+
+              <v-list-tile-title v-else>
+                <a :href="book.previewLink" target="_blank">
+                {{book.title}} (unknown)
+                </a>
+              </v-list-tile-title>
+
+            </v-list-tile-content>
+            <v-list-tile-action @click="removeBook(book, index)">
+              <v-icon class="add-icon red--text">remove_circle</v-icon>
+            </v-list-tile-action>
+          </v-list-tile>
+
+        </v-list>
     </v-flex>
 
     <v-flex xs12 sm6>
