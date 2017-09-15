@@ -115,6 +115,7 @@ export default {
     return {
       searchTerm: '',
       results: [],
+      books: [],
       searchPending: false
     }
   },
