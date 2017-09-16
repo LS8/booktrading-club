@@ -6,6 +6,7 @@ const app = express();
 const config = require('./config');
 const userRoutes = require('./routes/user');
 const bookRoutes = require('./routes/book');
+const { sequelize } = require('./models');
 
 // Common Middleware uncomment and npm install when required
 
@@ -43,6 +44,11 @@ app.get('/', function (req, res) { // let frontend handle client side routing
 app.use('/api', userRoutes);
 app.use('/api', bookRoutes);
 
-app.listen(config.port, () => {
-  console.log(`Server running on port ${config.port}`);
-});
+sequelize.sync()
+  .then(() => {
+    app.listen(config.port);
+    console.log(`Server running on port ${config.port}`);
+  })
+
+// app.listen(config.port, () => {
+// });
