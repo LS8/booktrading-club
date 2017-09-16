@@ -125,9 +125,8 @@ export default {
   },
   methods: {
     removeBook(book, index) {
-      console.log(book)
       this.books.splice(index, 1);
-      /* BookService.removeBook(bookId, userId) */
+      BookService.deleteBook(book.id) // pass user id to verify?
     },
     addToMyBooks (book) {
       this.books.push({
