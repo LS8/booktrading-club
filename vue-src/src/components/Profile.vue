@@ -104,7 +104,6 @@ export default {
         try {
           const books = data.books;
           this.books = books;
-          console.log(this.books);
         }
         catch (e) {
           console.log(e);
@@ -148,7 +147,6 @@ export default {
         })
     },
     onAddSuccess (data) {
-      console.log(data)
     },
     onAddError (error, data) {
       console.log(error, data)
