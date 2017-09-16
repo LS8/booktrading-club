@@ -3,6 +3,14 @@ const express = require('express');
 const Router = express.Router();
 const Book = require('../models/book');
 
+const loggedIn = (req) => {
+  if (req.session.user && req.session.cookie) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 Router.post('/searchBook', (req ,res) => {
   const searchTerm = req.body.searchTerm;
   const results = 10;
@@ -60,18 +68,22 @@ Router.get('/books/:userId' , (req, res) => {
 });
 
 Router.delete('/book/:bookId', (req, res) => {
-  const bookId = req.params.bookId;
-  Book.destroy({
-    where: {
-      id: bookId
-    }
-  })
-    .then(deletedCount => {
-      res.json({ success: true, msg: `Deleted ${deletedCount} book`});
+  if (!loggedIn(req)) {
+    res.json({msg: 'Unauthorized'});
+  } else {
+    const bookId = req.params.bookId;
+    Book.destroy({
+      where: {
+        id: bookId
+      }
     })
-    .catch(err => {
-      res.json({ success: false, msg: 'Error', err: err });
-    })
+      .then(deletedCount => {
+        res.json({ success: true, msg: `Deleted ${deletedCount} book`});
+      })
+      .catch(err => {
+        res.json({ success: false, msg: 'Error', err: err });
+      })
+  }
 })
 
 module.exports = Router;
