@@ -23,6 +23,10 @@ export default {
   getBooksByUser(userId) {
     return Vue.http.get(`${url}/api/books/${userId}`)
       .then(onSuccess, onError);
+  },
+  deleteBook(bookId) {
+    return Vue.http.delete(`${url}/api/book/${bookId}`)
+      .then(onSuccess, onError);
   }
 }
 
