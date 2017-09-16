@@ -57,6 +57,21 @@ Router.get('/books/:userId' , (req, res) => {
     .catch(err => {
       res.json({ success: false, msg: 'Error', err: err });
     })
+});
+
+Router.delete('/book/:bookId', (req, res) => {
+  const bookId = req.params.bookId;
+  Book.destroy({
+    where: {
+      id: bookId
+    }
+  })
+    .then(deletedCount => {
+      res.json({ success: true, msg: `Deleted ${deletedCount} book`});
+    })
+    .catch(err => {
+      res.json({ success: false, msg: 'Error', err: err });
+    })
 })
 
 module.exports = Router;
