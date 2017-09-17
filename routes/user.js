@@ -1,6 +1,7 @@
 const express = require('express');
 const Router = express.Router();
 const { User } = require('../models');
+const AuthController = require('../controllers/AuthController');
 
 const loggedIn = (req) => {
   if (req.session.user && req.session.cookie) {
@@ -25,29 +26,7 @@ Router.post('/login', (req ,res) => {
   });
 });
 
-Router.post('/register', (req, res) => {
-  User.create({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password
-  })
-    .then(user => {
-      req.session.user = user.dataValues;
-      res.json({ success: true, msg: 'Registration was successfull', status: 0 });
-    })
-    .catch(err => {
-      if (parseInt(err.original.code) === 23505 ) {
-        if (err.fields.username) {
-          res.json({ success: false, msg: 'Username is already registered', status: 1 });
-        } else if (err.fields.email) {
-          res.json({ success: false, msg: 'Email is already registered', status: 2 });
-        }
-      } else {
-        res.json({ success: false, msg: 'Error', status: 3, err: err });
-      }
-    })
-  }
-);
+Router.post('/register', AuthController.register);
 
 Router.get('/logout', (req, res) => {
   res.clearCookie('user');
