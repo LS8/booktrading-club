@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 import AuthService from './services/AuthService'
 
 const user =  null;
@@ -48,5 +49,6 @@ export default new Vuex.Store({
   state,
   getters,
   mutations,
-  actions
-})
+  actions,
+  plugins: [createPersistedState()]
+});
