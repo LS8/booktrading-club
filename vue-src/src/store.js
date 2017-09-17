@@ -9,17 +9,12 @@ const userId = user ? user.id : null;
 Vue.use(Vuex);
 
 const state = {
-  authenticated: AuthService.loggedIn(),
-  userId: userId,
   token: null,
   user: null,
   isUserLoggedIn: false
 };
 
 const mutations =  {
-  login: state => state.authenticated = true,
-  logout: state => state.authenticated = false,
-  setUserId: (state, value) => state.userId = value,
   setUser: (state, user) => state.user = user,
   setToken (state, token) {
     state.token = token;
@@ -32,9 +27,6 @@ const mutations =  {
 };
 
 const actions = {
-  setUserId({ commit }, value) {
-    commit('setUserId', value)
-  },
   setToken ({ commit }, token) {
     commit('setToken', token)
   },
@@ -44,11 +36,11 @@ const actions = {
 }
 
 const getters = {
-  auth: state => {
-    return state.authenticated;
+  isUserLoggedIn: state => {
+    return state.isUserLoggedIn;
   },
   user: state => {
-    return state.userId;
+    return state.user;
   }
 };
 
