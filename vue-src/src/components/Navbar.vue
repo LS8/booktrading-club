@@ -16,9 +16,9 @@
       </v-list>
     </v-navigation-drawer>
 
-  <v-toolbar absolute>
+  <v-toolbar class="cyan" dark absolute>
     <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
-     <router-link id="title" to='/home'><v-toolbar-title href='/home'>Booktrader</v-toolbar-title></router-link>
+     <v-toolbar-title href='/home'><router-link id="title" to='/home'>Booktrader</router-link></v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat to='/home'>Home</v-btn>
@@ -63,6 +63,10 @@ export default {
 <style scoped>
   #title {
     text-decoration: none;
-    color: rgba(0,0,0,0.870588);
+    color: rgb(255,255,255);
+    transition: .1s ease-in-out;
+  }
+  #title:hover {
+     color: #424242;
   }
 </style>
