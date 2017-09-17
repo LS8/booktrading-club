@@ -140,6 +140,7 @@ export default {
       }
     },
     onAddSuccess (data) {
+      this.books[this.books.length-1].id = data.id
     },
     onAddError (error) {
       console.log(error)
