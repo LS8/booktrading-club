@@ -37,7 +37,7 @@ Router.post('/addBook', (req, res) => {
     previewLink: previewLink
   })
     .then(book => {
-      res.json({ success: true, msg: 'Book added'});
+      res.json({ success: true, msg: 'Book added', id: book.id});
     })
     .catch(err => {
       res.json({ success: false, msg: 'Error', err: err });
