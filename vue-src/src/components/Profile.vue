@@ -28,8 +28,10 @@
               <v-icon class="add-icon red--text">remove_circle</v-icon>
             </v-list-tile-action>
           </v-list-tile>
-
         </v-list>
+        <slot v-else>
+          You don't have any books yet
+        </slot>
       </panel>
     </v-flex>
 
@@ -116,9 +118,9 @@ export default {
     }
   },
   methods: {
-    removeBook(book, index) {
+    async removeBook(book, index) {
       this.books.splice(index, 1);
-      BookService.deleteBook(book.id) // pass user id to verify?
+      await BookService.deleteBook(book.id) // pass user id to verify?
     },
     async addToMyBooks (book) {
       const imageLink = book.imageLinks ? book.imageLinks.smallThumbnail : "";
