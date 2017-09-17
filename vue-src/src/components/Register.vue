@@ -54,7 +54,7 @@ import store from '../store.js'
 
 export default {
   beforeRouteEnter (to, from, next) {
-    if (!store.getters.auth) {
+    if (!store.getters.isUserLoggedIn) {
       next();
     } else {
       next('/home');
@@ -75,17 +75,14 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
-      AuthService.register({ username: this.username, email: this.email, password: this.password })
-        .then( data => {
-          try {
-            this.handleSuccess(data);
-          }
-          catch (e) {
-            this.handleRejection(e, data);
-          }
-        });
-    },
+    async onSubmit () {
+      const data = await AuthService.register({ username: this.username, email: this.email, password: this.password })
+      try {
+        this.handleSuccess(data);
+      } catch (e) {
+        this.handleRejection(e, data);
+      }
+  },
     handleSuccess(data) {
       if (!data.success) throw new Error('Failed to register');
       this.$swal({

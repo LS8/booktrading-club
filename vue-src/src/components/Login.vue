@@ -53,22 +53,18 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
-      AuthService.login({ username: this.username, password: this.password })
-        .then( data => {
-          try {
-            this.handleSuccess(data);
-          }
-          catch (e) {
-            this.handleRejection(e, data);
-          }
-        });
+    async onSubmit () {
+      try {
+        const data = await AuthService.login({ username: this.username, password: this.password });
+        try { 
+          this.handleSuccess(data);
+        } catch (e) { this.handleRejection(e, data) }
+      } catch (e) {
+        this.handleRejection(e, data);
+      }
     },
     handleSuccess(data) {
-      localStorage.setItem('user', JSON.stringify(data.user));
-      const user = JSON.parse(localStorage.getItem('user'));
-      this.$store.commit('login');
-      this.$store.dispatch('setUserId', user.id);
+      if (!data.success) throw new Error;
       this.$store.dispatch('setToken', data.token);
       this.$store.dispatch('setUser', data.user);
       this.$swal({

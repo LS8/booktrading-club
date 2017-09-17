@@ -7,7 +7,7 @@
           <v-list-tile avatar class="tile" v-for="(book, index) in books" v-bind:key="book.id">
               <v-list-tile-avatar>
               <a :href="book.previewLink" target="_blank">
-              <img v-bind:src="book.imageLink"/>
+              <img v-if="book.imageLink" v-bind:src="book.imageLink"/>
               </a>
             </v-list-tile-avatar>
             <v-list-tile-content>
@@ -92,23 +92,19 @@ import BookService from '../services/BookService'
 
 export default {
   beforeRouteEnter (to, from, next) {
-    if (store.getters.auth) {
+    if (store.getters.isUserLoggedIn) {
       next();
     } else {
       next('/login');
     }
   },
-  created () {
-    BookService.getBooksByUser(this.$store.getters.user)
-      .then( data => {
-        try {
-          const books = data.books;
-          this.books = books;
-        }
-        catch (e) {
-          console.log(e);
-        }
-      })
+  async created () {
+    try {
+      const data = await BookService.getBooksByUser(this.$store.getters.user.id);
+      this.books = data.books || [];
+    } catch (e) {
+      console.log(e);
+    }
   },
   data () {
     return {
@@ -128,41 +124,35 @@ export default {
       this.books.splice(index, 1);
       BookService.deleteBook(book.id) // pass user id to verify?
     },
-    addToMyBooks (book) {
+    async addToMyBooks (book) {
+      const imageLink = book.imageLinks ? book.imageLinks.smallThumbnail : "";
       this.books.push({
         author: book.authors ? book.authors.join(", ") : "unknown",
         title: book.title,
         previewLink: book.previewLink,
-        imageLink: book.imageLinks.smallThumbnail
+        imageLink: imageLink
       });
-      BookService.addBook(book.title, book.authors, this.$store.getters.user, book.previewLink, book.imageLinks.smallThumbnail)
-        .then( data => {
-          try {
-            this.onAddSuccess(data);
-          }
-          catch (e) {
-            this.onAddError(e, data);
-          }
-        })
+      try {
+        const response = await BookService.addBook(book.title, book.authors, this.$store.getters.user.id, book.previewLink, imageLink);
+        this.onAddSuccess(response);
+      } catch (e) {
+        this.onAddError(e);
+      }
     },
     onAddSuccess (data) {
     },
-    onAddError (error, data) {
-      console.log(error, data)
+    onAddError (error) {
+      console.log(error)
     },
-    onSubmit () {
+    async onSubmit () {
       this.results = [];
       this.searchPending = true;
-      BookService.searchBook(this.searchTerm)
-        .then( data => {
-          try {
-            this.onSubmitSuccess(data);
-          }
-          catch (e) {
-            this.onSubmitError(e, data);
-          }
-
-        });
+      try {
+        const data = await BookService.searchBook(this.searchTerm)
+        this.onSubmitSuccess(data);
+      } catch (e) {
+        this.onSubmitError(e);
+      }
     },
     onSubmitSuccess (data) {
       this.searchPending = false;
