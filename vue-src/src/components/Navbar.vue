@@ -20,10 +20,10 @@
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat to='/home'>Home</v-btn>
-      <v-btn v-if="!loggedIn" flat to='/login'>Login</v-btn>
-      <v-btn v-if="loggedIn" flat to='/profile'>Profile</v-btn>
-      <v-btn v-if="loggedIn"@click.native="onLogout" flat>Logout</v-btn>
-      <v-btn v-if="!loggedIn" flat to='/register'>Register</v-btn>
+      <v-btn v-if="!$store.state.isUserLoggedIn" flat to='/login'>Login</v-btn>
+      <v-btn v-if="$store.state.isUserLoggedIn" flat to='/profile'>Profile</v-btn>
+      <v-btn v-if="$store.state.isUserLoggedIn" @click.native="onLogout" flat>Logout</v-btn>
+      <v-btn v-if="!$store.state.isUserLoggedIn" flat to='/register'>Register</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </div>
@@ -38,11 +38,6 @@ export default {
   data() {
     return {
       drawer: null,
-    }
-  },
-  computed: {
-    loggedIn () {
-      return this.$store.getters.auth;
     }
   },
   methods: {
