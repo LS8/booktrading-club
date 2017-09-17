@@ -10,6 +10,9 @@ module.exports = {
       dialect: 'postgres',
       host: 'localhost'
     }
+  },
+  authentication: {
+    jwtSecret: process.env.JWT_SECRET || secrets.jwtSecret || 'secret'
   }
 }
 
