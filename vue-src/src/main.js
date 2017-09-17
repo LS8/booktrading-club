@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 import VueResource from 'vue-resource'
 import Vuetify from 'vuetify'
 import App from './App'
+import { sync } from 'vuex-router-sync'
 import router from './router'
 import store from './store'
 import VueSwal from './swal'
@@ -15,6 +16,8 @@ Vue.use(VueResource)
 Vue.use(Vuetify)
 Vue.use(VueSwal)
 Vue.config.productionTip = false
+
+sync(store, router)
 
 
 /* eslint-disable no-new */
