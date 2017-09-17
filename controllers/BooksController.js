@@ -1,4 +1,5 @@
 const { Book } = require('../models');
+const rp = require('request-promise');
 
 module.exports = {
   async addBook (req, res) {
@@ -24,5 +25,26 @@ module.exports = {
     } catch (err) {
       return res.json({ success: false, msg: 'Error', err: err });
     }
+  },
+  async searchBook (req, res) {
+    const searchTerm = req.body.searchTerm;
+    const results = 10;
+    let options = {
+      url: `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=${results}&projection=lite`,
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    };
+    try {
+      const response = await rp(options);
+      res.json({ success: true, info: JSON.parse(response).items });
+    } catch (err) {
+      return res.json({ success: false, msg: 'Error', err: 
+        {
+          nodeErr: err,
+          responseErr: JSON.parse(response).error.errors 
+        }
+      });
+    }
   }
 }
+
