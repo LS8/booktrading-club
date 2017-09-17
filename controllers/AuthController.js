@@ -35,7 +35,6 @@ module.exports = {
           username: username
         }
       });
-      console.log(user);
       if (!user) { return res.json({ success: false, msg: 'User not found', status: 1 }); }
       const isPasswordValid = await user.comparePassword(password);
       if (!isPasswordValid) {
