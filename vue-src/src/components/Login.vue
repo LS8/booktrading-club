@@ -69,6 +69,8 @@ export default {
       const user = JSON.parse(localStorage.getItem('user'));
       this.$store.commit('login');
       this.$store.dispatch('setUserId', user.id);
+      this.$store.dispatch('setToken', data.token);
+      this.$store.dispatch('setUser', data.user);
       this.$swal({
         title: 'Success',
         text: 'Successfully logged in, you are now being redirected',
