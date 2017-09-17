@@ -11,10 +11,11 @@ export default {
     .then(onSuccess, onError);
   },
   addBook(title, author, userId, previewLink, imageLink) {
+    author = typeof author === "object" ? author.join(', ') : '';
     return Vue.http.post(`${url}/api/addBook`, {
       title: title,
       author: author,
-      userId: userId,
+      ownerId: userId,
       previewLink: previewLink,
       imageLink: imageLink
     })
