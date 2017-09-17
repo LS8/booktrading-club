@@ -10,12 +10,16 @@ import { sync } from 'vuex-router-sync'
 import router from './router'
 import store from './store'
 import VueSwal from './swal'
+import Panel from '@/components/Panel'
+
 
 Vue.use(Vuex)
 Vue.use(VueResource)
 Vue.use(Vuetify)
 Vue.use(VueSwal)
 Vue.config.productionTip = false
+
+Vue.component('panel', Panel)
 
 sync(store, router)
 
