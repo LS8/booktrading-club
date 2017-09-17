@@ -2,7 +2,7 @@
 <div>
   <v-layout row wrap>
     <v-flex xs12 sm6>
-      <h2>My books</h2>
+      <panel title="My books">
         <v-list v-if="books.length">
           <v-list-tile avatar class="tile" v-for="(book, index) in books" v-bind:key="book.id">
               <v-list-tile-avatar>
@@ -30,10 +30,11 @@
           </v-list-tile>
 
         </v-list>
+      </panel>
     </v-flex>
 
     <v-flex xs12 sm6>
-      <h2>Add a book</h2>
+      <panel title="Add a book">
         <form v-if="!searchPending" @submit.prevent="onSubmit">
           <v-layout row>
             <v-flex xs12 sm8 offset-sm2>
@@ -41,7 +42,6 @@
               v-model="searchTerm"
               name="searchTerm"
               label="Search the library"
-              required
               ></v-text-field>
               <v-btn type="submit" primary :disabled="!formIsValid">Submit</v-btn>
             </v-flex>
@@ -76,13 +76,9 @@
               <v-icon class="add-icon blue--text">library_add</v-icon>
             </v-list-tile-action>
           </v-list-tile>
-
         </v-list>
-
-
-
+        </panel>
     </v-flex>
-
   </v-layout>
 </div>
 </template>

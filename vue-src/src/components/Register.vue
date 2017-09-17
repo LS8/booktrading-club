@@ -2,6 +2,7 @@
   <div>
     <v-layout row>
       <v-flex xs12>
+        <panel title="Register">
         <form @submit.prevent="onSubmit">
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
@@ -10,11 +11,13 @@
               v-model="username"
               name="username"
               label="Enter Username"
+              :rules="[required]"
               required
               ></v-text-field>
 
               <v-text-field
               v-model="email"
+              :rules="[required]"
               name="email"
               label="Enter Email"
               required
@@ -22,6 +25,7 @@
 
               <v-text-field
               v-model="password"
+              :rules="[required]"
               name="password"
               label="Enter Password"
               type="password"
@@ -31,6 +35,7 @@
               <v-text-field
               v-model="confirmPassword"
               name="confirmPassword"
+              :rules="[required]"
               label="Confirm Password"
               type="password"
               required
@@ -41,6 +46,7 @@
             </v-flex>
           </v-layout>
         </form>
+        </panel>
      </v-flex>
     </v-layout>
   </div>
@@ -65,7 +71,8 @@ export default {
       username: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      required: (value) => !!value || 'Required.'
     }
   },
   computed: {
