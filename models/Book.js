@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) =>
     },
     imageLink: {
       type: DataTypes.STRING
+    },
+    requestedBy: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   },
     {
