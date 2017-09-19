@@ -10,6 +10,13 @@ export default {
     })
     .then(onSuccess, onError);
   },
+  requestTrade(bookId, user) {
+    return Vue.http.post(`${url}/api/requestTrade`, {
+      bookId: bookId,
+      user: user
+    })
+    .then(onSuccess, onError);
+  },
   addBook(title, author, userId, previewLink, imageLink) {
     author = typeof author === "object" ? author.join(', ') : '';
     return Vue.http.post(`${url}/api/addBook`, {
@@ -20,6 +27,10 @@ export default {
       imageLink: imageLink
     })
     .then(onSuccess, onError);
+  },
+  getAllBooks() {
+    return Vue.http.get(`${url}/api/books`)
+      .then(onSuccess, onError);
   },
   getBooksByUser(userId) {
     return Vue.http.get(`${url}/api/books/${userId}`)
