@@ -2,7 +2,7 @@
 <div>
   <v-layout row wrap>
     <v-flex xs12>
-      <requests :books="books" v-if="$store.getters.isUserLoggedIn"/>
+      <requests :log="log" :books="books" v-if="$store.getters.isUserLoggedIn"/>
       <panel title="All books">
         <v-list v-if="books.length">
           <v-list-tile avatar class="tile" v-for="(book, index) in books" v-bind:key="book.id">
@@ -26,8 +26,12 @@
 
             </v-list-tile-content>
             <v-list-tile-action v-if="$store.state.user">
-              <v-icon @click="requestTrade(book, index)" v-if="!userIsOwner(book) && book.requestedBy === 0" class="add-icon green--text">swap_horiz</v-icon>
-              <v-icon v-else class="add-icon deactivated grey--text">swap_horiz</v-icon>
+              <v-btn v-if="!userIsOwner(book) && book.requestedBy === 0" @click="requestTrade(book, index)" icon v-tooltip:left="{ html: 'Request this book' }">
+                <v-icon class="add-icon green--text">swap_horiz</v-icon>
+              </v-btn>
+              <v-btn v-else icon v-tooltip:left="{ html: 'You cannot request this book' }">
+                <v-icon class="add-icon deactivated grey--text">swap_horiz</v-icon>
+              </v-btn>
             </v-list-tile-action>
           </v-list-tile>
         </v-list>
@@ -60,6 +64,9 @@ export default {
   computed:{
   },
   methods: {
+    log(book) {
+      console.log(book)
+    },
     bookColor: function(book){
         let text = '';
         if(this.userIsOwner(book)){

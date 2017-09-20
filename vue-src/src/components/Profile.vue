@@ -25,7 +25,9 @@
 
             </v-list-tile-content>
             <v-list-tile-action @click="removeBook(book, index)">
-              <v-icon class="add-icon red--text">remove_circle</v-icon>
+              <v-btn icon v-tooltip:left="{ html: 'Delete this book' }">
+                <v-icon class="add-icon red--text">remove_circle</v-icon>
+              </v-btn>
             </v-list-tile-action>
           </v-list-tile>
         </v-list>
@@ -75,7 +77,9 @@
 
             </v-list-tile-content>
             <v-list-tile-action @click="addToMyBooks(book)">
-              <v-icon class="add-icon blue--text">library_add</v-icon>
+              <v-btn icon v-tooltip:left="{ html: 'Add to my books' }">
+                <v-icon class="add-icon blue--text">library_add</v-icon>
+              </v-btn>
             </v-list-tile-action>
           </v-list-tile>
         </v-list>
