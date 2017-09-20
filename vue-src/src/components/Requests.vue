@@ -4,9 +4,9 @@
     <v-expansion-panel expand>
       <v-flex xs12 class="outset">
       <!-- Request for the User -->
-        <v-expansion-panel-content class="green lighten-2">
+        <v-expansion-panel-content class="pl-4 pr-4 pt-2 pb-2 green lighten-2">
           <div slot="header">Trade Requests For You ({{requestsForUser().length}})</div>
-          <v-list-tile avatar class="tile green lighten-3" v-for="(book, index) in requestsForUser()" v-bind:key="book.id">
+          <v-list-tile avatar class="tile green lighten-2" v-for="(book, index) in requestsForUser()" v-bind:key="book.id">
             <v-list-tile-avatar>
               <a :href="book.previewLink" target="_blank">
                 <img v-if="book.imageLink" v-bind:src="book.imageLink"/>
@@ -24,12 +24,23 @@
                 </a>
               </v-list-tile-title>
             </v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn icon @click="log(book)" v-tooltip:left="{ html: 'Accept trade request' }">
+                <v-icon class="add-icon green--text text--darken-4">done</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+            <v-list-tile-action>
+              <v-btn icon @click="log(book)" v-tooltip:left="{ html: 'Decline trade request' }">
+                <v-icon class="add-icon red--text text--darken-4">sync_disabled</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+
           </v-list-tile>
         </v-expansion-panel-content>
     <!-- Request by the User -->
-    <v-expansion-panel-content class="deep-orange lighten-2">
+    <v-expansion-panel-content class="pl-4 pr-4 pt-2 pb-2 deep-orange lighten-2">
       <div slot="header">Your Trade Requests ({{requestsByUser().length}})</div>
-          <v-list-tile avatar class="tile deep-orange lighten-3" v-for="(book, index) in requestsByUser()" v-bind:key="book.id">
+          <v-list-tile avatar class="tile deep-orange lighten-2" v-for="(book, index) in requestsByUser()" v-bind:key="book.id">
             <v-list-tile-avatar>
               <a :href="book.previewLink" target="_blank">
                 <img v-if="book.imageLink" v-bind:src="book.imageLink"/>
@@ -47,6 +58,11 @@
                 </a>
               </v-list-tile-title>
             </v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn @click="log(book)" icon v-tooltip:left="{ html: 'Cancel trade request' }">
+                <v-icon class="add-icon red--text text--darken-4">sync_disabled</v-icon>
+              </v-btn>
+            </v-list-tile-action>
           </v-list-tile>
         </v-expansion-panel-content>
     </v-expansion-panel-content>
@@ -64,7 +80,7 @@ export default {
     return {
     }
   },
-  props: ['books'],
+  props: ['books', 'log'],
   methods: {
     requestsForUser () {
       const requests = this.books.filter((book) => {
