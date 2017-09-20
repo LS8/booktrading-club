@@ -2,6 +2,7 @@
 <div>
   <v-layout row wrap>
     <v-flex xs12>
+      <requests :books="books" v-if="$store.getters.isUserLoggedIn"/>
       <panel title="All books">
         <v-list v-if="books.length">
           <v-list-tile avatar class="tile" v-for="(book, index) in books" v-bind:key="book.id">
@@ -12,20 +13,20 @@
             </v-list-tile-avatar>
             <v-list-tile-content>
               <v-list-tile-title v-if="book.author">
-                <a :href="book.previewLink" v-bind:class="userIsOwner(book)" target="_blank">
+                <a :href="book.previewLink" :class="bookColor(book)" target="_blank">
                 {{book.title}} ({{book.author}})
                 </a>
               </v-list-tile-title>
 
               <v-list-tile-title v-else>
-                <a :href="book.previewLink" target="_blank">
+                <a :href="book.previewLink" :class="bookColor(book)" target="_blank">
                 {{book.title}} (unknown)
                 </a>
               </v-list-tile-title>
 
             </v-list-tile-content>
             <v-list-tile-action v-if="$store.state.user">
-              <v-icon @click="requestTrade(book)" v-if="!userIsOwner(book) && book.requestedBy === 0" class="add-icon green--text">swap_horiz</v-icon>
+              <v-icon @click="requestTrade(book, index)" v-if="!userIsOwner(book) && book.requestedBy === 0" class="add-icon green--text">swap_horiz</v-icon>
               <v-icon v-else class="add-icon deactivated grey--text">swap_horiz</v-icon>
             </v-list-tile-action>
           </v-list-tile>
@@ -40,6 +41,7 @@
 </template>
 <script>
 import BookService from '../services/BookService'
+import Requests from './Requests.vue'
 
 export default {
   async created () {
@@ -55,25 +57,37 @@ export default {
       books: []
     }
   },
+  computed:{
+  },
   methods: {
+    bookColor: function(book){
+        let text = '';
+        if(this.userIsOwner(book)){
+            text = 'cyan--text';
+        }
+        return text;
+    },
     userIsOwner: function (book) {
-      if (this.$store.state.user && this.$store.state.user.id === book.ownerId) {
-        return 'cyan--text';
+      if (this.$store.getters.user && this.$store.getters.user.id === book.ownerId) {
+        return true;
       } else {
         return false;
       }
     },
-    async requestTrade (book) {
+    async requestTrade (book, index) {
       if (this.userIsOwner(book) || book.requestedBy) {
         return;
       }
       try {
         const requestedBook = await BookService.requestTrade(book.id, this.$store.state.user);
-        book.requestedBy = requestedBook.requestedBy;
+        book.requestedBy = requestedBook.book.requestedBy;
       } catch (e) {
         console.log(e);
       }
     }
+  },
+  components: {
+    'requests': Requests
   }
 }
 </script>
