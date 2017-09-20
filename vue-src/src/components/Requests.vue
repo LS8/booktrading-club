@@ -107,7 +107,7 @@ a {
   cursor: pointer;
 }
 .tile:hover {
-  background: rgba(0, 0, 0, 0.117647);
+  background: rgba(0, 0, 0, 0.117647) !important;
   transition: .3s cubic-bezier(.25,.8,.5,1);
 }
 .tile {
