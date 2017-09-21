@@ -39,7 +39,19 @@ export default {
   deleteBook(bookId) {
     return Vue.http.delete(`${url}/api/book/${bookId}`)
       .then(onSuccess, onError);
-  }
+  },
+  allowTradeRequest(bookId) {
+    return Vue.http.patch(`${url}/api/trade`, { bookId: bookId })
+      .then(onSuccess, onError);
+  },
+  declineTradeRequest(bookId) {
+    return Vue.http.patch(`${url}/api/trade/decline`, { bookId: bookId })
+      .then(onSuccess, onError);
+  },
+  cancelTradeRequest(bookId) {
+    return Vue.http.patch(`${url}/api/trade/cancel`, { bookId: bookId })
+      .then(onSuccess, onError);
+  },
 }
 
 const onSuccess = (response) => {
