@@ -72,6 +72,37 @@ module.exports = {
         }
       });
     }
-  }
+  },
+  async trade (req, res) {
+    try {
+      const id = req.body.bookId;
+      const book = await Book.findById(id);
+      const updatedBook = await book.updateAttributes({ ownerId: book.requestedBy, requestedBy: 0 });
+      res.json({ success: true, updatedBook: updatedBook });
+    } catch (err) {
+      return res.json({ success: false, msg: 'Error', err: err });
+    }
+  },
+  async decline (req, res) {
+    try {
+      const id = req.body.bookId;
+      const book = await Book.findById(id);
+      const updatedBook = await book.updateAttributes({ requestedBy: 0 });
+      res.json({ success: true, updatedBook: updatedBook });
+    } catch (err) {
+      return res.json({ success: false, msg: 'Error', err: err });
+    }
+  },
+  async cancel (req, res) {
+    try {
+      const id = req.body.bookId;
+      const book = await Book.findById(id);
+      const updatedBook = await book.updateAttributes({ requestedBy: 0 });
+      res.json({ success: true, updatedBook: updatedBook });
+    } catch (err) {
+      return res.json({ success: false, msg: 'Error', err: err });
+    }
+  },
+
 }
 
