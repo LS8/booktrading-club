@@ -64,9 +64,6 @@ export default {
   computed:{
   },
   methods: {
-    log(book) {
-      console.log(book)
-    },
     async allowTradeRequest(book) {
       try {
         const updatedBook = await BookService.allowTradeRequest(book.id);
@@ -78,7 +75,6 @@ export default {
     },
     async declineTradeRequest(book) {
       try {
-        console.log('decline', book);
         await BookService.declineTradeRequest(book.id);
         book.requestedBy = 0;
       } catch (e) {
@@ -87,7 +83,6 @@ export default {
     },
     async cancelTradeRequest(book) {
       try {
-        console.log('cancel', book);
         await BookService.cancelTradeRequest(book.id);
         book.requestedBy = 0;
       } catch (e) {
