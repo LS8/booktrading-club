@@ -1,7 +1,6 @@
-const secrets = require('./secrets');
 module.exports = {
   port: process.env.PORT || 8080,
-  cookieSecret: secrets.cookie || '123',
+  cookieSecret: '123',
   db: {
     URI: process.env.DATABASE_URL,
     database: process.env.DB_NAME || 'booktrading' || secrets.db,
@@ -13,7 +12,7 @@ module.exports = {
     }
   },
   authentication: {
-    jwtSecret: process.env.JWT_SECRET || secrets.jwtSecret || 'secret'
+    jwtSecret: process.env.JWT_SECRET || 'secret'
   }
 }
 
