@@ -25,12 +25,12 @@
               </v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn icon @click="log(book)" v-tooltip:left="{ html: 'Accept trade request' }">
+              <v-btn icon @click="allow(book)" v-tooltip:left="{ html: 'Accept trade request' }">
                 <v-icon class="add-icon green--text text--darken-4">done</v-icon>
               </v-btn>
             </v-list-tile-action>
             <v-list-tile-action>
-              <v-btn icon @click="log(book)" v-tooltip:left="{ html: 'Decline trade request' }">
+              <v-btn icon @click="decline(book)" v-tooltip:left="{ html: 'Decline trade request' }">
                 <v-icon class="add-icon red--text text--darken-4">sync_disabled</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -59,7 +59,7 @@
               </v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn @click="log(book)" icon v-tooltip:left="{ html: 'Cancel trade request' }">
+              <v-btn @click="cancel(book)" icon v-tooltip:left="{ html: 'Cancel trade request' }">
                 <v-icon class="add-icon red--text text--darken-4">sync_disabled</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -80,7 +80,7 @@ export default {
     return {
     }
   },
-  props: ['books', 'log'],
+  props: ['books', 'allow', 'decline', 'cancel'],
   methods: {
     requestsForUser () {
       const requests = this.books.filter((book) => {
