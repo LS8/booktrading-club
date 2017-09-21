@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "cd vue-src && npm install && npm run build",
     "start": "node server.js"
   },
   "keywords": [],
