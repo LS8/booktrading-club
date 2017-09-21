@@ -14,4 +14,10 @@ Router.delete('/book/:bookId', BooksController.deleteBook);
 
 Router.post('/searchBook', BooksController.searchBook);
 
+Router.patch('/trade', BooksController.trade);
+
+Router.patch('/trade/decline', BooksController.decline);
+
+Router.patch('/trade/cancel', BooksController.cancel);
+
 module.exports = Router;
