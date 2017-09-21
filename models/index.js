@@ -4,12 +4,22 @@ const config = require('../config');
 const Sequelize = require('sequelize');
 const db = {};
 
-const sequelize = new Sequelize(
-  config.db.database,
-  config.db.user,
-  config.db.password,
-  config.db.options
-);
+let sequelize;
+
+if (!config.db.URI) {
+  sequelize = new Sequelize(
+    config.db.database,
+    config.db.user,
+    config.db.password,
+    config.db.options
+  );
+} else {
+  sequelize = new Sequelize( config.db.URI, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: { ssl: true }
+  });
+}
 
 fs
   .readdirSync(__dirname)
