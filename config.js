@@ -3,12 +3,13 @@ module.exports = {
   port: process.env.PORT || 8080,
   cookieSecret: secrets.cookie,
   db: {
-    database: process.env.DATABASE_URL || 'booktrading' || secrets.db,
-    user: 'chinchi',
-    password: '123456',
+    URI: process.env.DATABASE_URL,
+    database: process.env.DB_NAME || 'booktrading' || secrets.db,
+    user: process.env.DB_USER || 'chinchi',
+    password: process.env.DB_PASS || '123456',
     options: {
-      dialect: 'postgres',
-      host: 'localhost'
+      dialect: process.env.DIALECT || 'postgres',
+      host: process.env.HOST || 'localhost'
     }
   },
   authentication: {
