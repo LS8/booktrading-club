@@ -2,7 +2,7 @@
 <div>
   <v-layout row wrap>
     <v-flex xs12>
-      <requests :log="log" :books="books" v-if="$store.getters.isUserLoggedIn"/>
+      <requests :allow="allowTradeRequest" :decline="declineTradeRequest" :cancel="cancelTradeRequest" :books="books" v-if="$store.getters.isUserLoggedIn"/>
       <panel title="All books">
         <v-list v-if="books.length">
           <v-list-tile avatar class="tile" v-for="(book, index) in books" v-bind:key="book.id">
@@ -66,6 +66,33 @@ export default {
   methods: {
     log(book) {
       console.log(book)
+    },
+    async allowTradeRequest(book) {
+      try {
+        const updatedBook = await BookService.allowTradeRequest(book.id);
+        book.ownerId = book.requestedBy;
+        book.requestedBy = 0;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async declineTradeRequest(book) {
+      try {
+        console.log('decline', book);
+        await BookService.declineTradeRequest(book.id);
+        book.requestedBy = 0;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async cancelTradeRequest(book) {
+      try {
+        console.log('cancel', book);
+        await BookService.cancelTradeRequest(book.id);
+        book.requestedBy = 0;
+      } catch (e) {
+        console.log(e);
+      }
     },
     bookColor: function(book){
         let text = '';
