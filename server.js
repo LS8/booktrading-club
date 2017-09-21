@@ -1,4 +1,5 @@
 const express = require('express');
+const history = require('connect-history-api-fallback');
 const path = require('path');
 const bodyparser = require('body-parser');
 const session = require('express-session');
@@ -14,6 +15,8 @@ const cors = require('cors');
 app.use(cors());
 
 app.use(bodyparser.json());
+
+app.use(history());
 
 // initialize express-session
 app.use(session({
