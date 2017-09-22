@@ -15,6 +15,10 @@ Router.post('/login', AuthController.login);
 
 Router.post('/register', AuthController.register);
 
+Router.get('/settings/:id', AuthController.getSettings);
+
+Router.post('/settings/:id', AuthController.postSettings);
+
 Router.get('/logout', (req, res) => {
   res.clearCookie('user');
   res.redirect('/api/profile');
