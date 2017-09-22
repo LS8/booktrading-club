@@ -22,8 +22,13 @@ export default {
   logout() {
     localStorage.clear();
   },
-  loggedIn() {
-    return localStorage.getItem('user') ? true : false;
+  getSettings(userId) {
+    return Vue.http.get(`${url}/api/settings/${userId}`)
+    .then(onSuccess, onError);
+  },
+  postSettings(settings, userId) {
+    return Vue.http.post(`${url}/api/settings/${userId}`, { settings: settings })
+    .then(onSuccess, onError);
   }
 }
 
