@@ -1,3 +1,3 @@
 export default {
-  serverAddress: process.env.PROD_HEROKU ? '' : 'http://localhost:8080'
+  serverAddress: process.env.NODE_ENV === "development" ? 'http://localhost:8080' : ''  
 }
