@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    settings: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      defaultValue: ['','','','']
+    }
   },
     {
       updatedAt: false,
