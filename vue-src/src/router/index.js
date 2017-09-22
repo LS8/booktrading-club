@@ -32,6 +32,10 @@ export default new Router({
     },
     {
       path: '/profile',
+      redirect: { name: 'Profile'}
+    },
+    {
+      path: '/my-books',
       name: 'Profile',
       component: Profile
     },
