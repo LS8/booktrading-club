@@ -12,7 +12,7 @@ module.exports = {
     }
   },
   authentication: {
-    jwtSecret: process.env.JWT_SECRET || 'secret'
+    jwtSecret: process.env.JWT_SECRET || require('./secrets').jwtSecret
   }
 }
 
