@@ -19,6 +19,7 @@ Vue.use(Vuetify)
 Vue.use(VueSwal)
 Vue.config.productionTip = false
 
+Vue.http.headers.common['Authorization'] = `Bearer ${store.state.token}`;
 Vue.component('panel', Panel)
 
 sync(store, router)
