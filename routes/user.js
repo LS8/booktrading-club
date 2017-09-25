@@ -8,8 +8,8 @@ Router.post('/login', AuthController.login);
 
 Router.post('/register', AuthController.register);
 
-Router.get('/settings/:id', isAuthenticated, AuthController.getSettings);
+Router.get('/settings', isAuthenticated, AuthController.getSettings);
 
-Router.post('/settings/:id', isAuthenticated, AuthController.postSettings);
+Router.post('/settings', isAuthenticated, AuthController.postSettings);
 
 module.exports = Router;
