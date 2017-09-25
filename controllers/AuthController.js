@@ -13,7 +13,6 @@ module.exports = {
   async register (req, res) {
     try {
       const user = await User.create(req.body);
-      req.session.user = user.dataValues;
       res.json({ success: true, msg: 'Registration was successfull', status: 0 });
     } catch (err) {
       if (parseInt(err.original.code) === 23505 ) {
@@ -40,7 +39,6 @@ module.exports = {
       if (!isPasswordValid) {
         return res.json({ success: false, msg: 'Wrong password', status: 2 });
       }
-      req.session.user = user.dataValues;
       res.json({
         success: true, 
         msg: 'Login was successfull',
