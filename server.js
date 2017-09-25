@@ -16,7 +16,7 @@ app.use(cors());
 
 app.use(bodyparser.json());
 
-app.use(history());
+if (process.env.PROD_HEROKU) { app.use(history()); }
 
 // initialize express-session
 app.use(session({
