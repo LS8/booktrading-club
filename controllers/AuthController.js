@@ -54,7 +54,7 @@ module.exports = {
   },
   async getSettings(req, res) {
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.user.id);
       res.json({ success: true, msg: 'Settings found', status: 0, settings: user.settings });
     } catch (e) {
       res.json({ success: false, msg: 'Error while trying to get settings', status: 1, err: err });
@@ -62,7 +62,7 @@ module.exports = {
   },
   async postSettings(req, res) {
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.user.id);
       const updatedUser = await user.updateAttributes({ settings: req.body.settings });
       res.json({ success: true, msg: 'Settings updated', status: 0 });
     } catch (e) {
