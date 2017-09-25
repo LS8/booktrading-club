@@ -20,9 +20,8 @@ export default {
   addBook(title, author, userId, previewLink, imageLink) {
     author = typeof author === "object" ? author.join(', ') : '';
     return Vue.http.post(`${url}/api/addBook`, {
-      title: title,
+      title: title.substring(0, 120),
       author: author,
-      ownerId: userId,
       previewLink: previewLink,
       imageLink: imageLink
     })
