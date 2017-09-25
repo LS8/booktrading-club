@@ -24,7 +24,7 @@
       <v-btn v-if="!$store.state.isUserLoggedIn" flat to='/login'>Login</v-btn>
       <v-btn v-if="!$store.state.isUserLoggedIn" flat to='/register'>Register</v-btn>
       <v-btn v-if="$store.state.isUserLoggedIn" flat to='/profile'>My Books</v-btn>
-      <v-btn flat to='/settings'>Settings</v-btn>
+      <v-btn v-if="$store.state.isUserLoggedIn" flat to='/settings'>Settings</v-btn>
       <v-btn v-if="$store.state.isUserLoggedIn" @click.native="onLogout" flat>Logout</v-btn>
     </v-toolbar-items>
   </v-toolbar>
