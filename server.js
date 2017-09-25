@@ -37,6 +37,8 @@ app.use((req, res, next) => {
   next();
 });
 
+require('./passport');
+
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) { // let frontend handle client side routing
