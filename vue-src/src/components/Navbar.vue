@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     onLogout () {
-      AuthService.logout();
       this.$store.dispatch('setToken', null);
       this.$store.dispatch('setUser', null);
       this.$swal({

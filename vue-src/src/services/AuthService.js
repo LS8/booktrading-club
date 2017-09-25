@@ -19,9 +19,6 @@ export default {
     })
     .then(onSuccess, onError);
   },
-  logout() {
-    localStorage.clear();
-  },
   getSettings(userId) {
     return Vue.http.get(`${url}/api/settings/${userId}`)
     .then(onSuccess, onError);
