@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import config from '../config';
+import store from '../store';
 
 const url = config.serverAddress;
 
@@ -7,14 +8,18 @@ export default {
   searchBook(searchTerm) {
     return Vue.http.post(`${url}/api/searchBook`, {
       searchTerm: searchTerm
-    })
+    },{ headers: {
+      Authorization: `Bearer ${store.state.token}`
+    }})
     .then(onSuccess, onError);
   },
   requestTrade(bookId, user) {
     return Vue.http.post(`${url}/api/requestTrade`, {
       bookId: bookId,
       user: user
-    })
+    },{ headers: {
+      Authorization: `Bearer ${store.state.token}`
+    }})
     .then(onSuccess, onError);
   },
   addBook(title, author, userId, previewLink, imageLink) {
@@ -24,7 +29,9 @@ export default {
       author: author,
       previewLink: previewLink,
       imageLink: imageLink
-    })
+    },{ headers: {
+      Authorization: `Bearer ${store.state.token}`
+    }})
     .then(onSuccess, onError);
   },
   getAllBooks() {
@@ -32,23 +39,33 @@ export default {
       .then(onSuccess, onError);
   },
   getBooksByUser() {
-    return Vue.http.get(`${url}/api/user-books/`)
+    return Vue.http.get(`${url}/api/user-books/`,{ headers: {
+      Authorization: `Bearer ${store.state.token}`
+    }})
       .then(onSuccess, onError);
   },
   deleteBook(bookId) {
-    return Vue.http.delete(`${url}/api/book/${bookId}`)
+    return Vue.http.delete(`${url}/api/book/${bookId}`,{ headers: {
+      Authorization: `Bearer ${store.state.token}`
+    }})
       .then(onSuccess, onError);
   },
   allowTradeRequest(bookId) {
-    return Vue.http.patch(`${url}/api/trade`, { bookId: bookId })
+    return Vue.http.patch(`${url}/api/trade`, { bookId: bookId },{ headers: {
+      Authorization: `Bearer ${store.state.token}`
+    }})
       .then(onSuccess, onError);
   },
   declineTradeRequest(bookId) {
-    return Vue.http.patch(`${url}/api/trade/decline`, { bookId: bookId })
+    return Vue.http.patch(`${url}/api/trade/decline`, { bookId: bookId },{ headers: {
+      Authorization: `Bearer ${store.state.token}`
+    }})
       .then(onSuccess, onError);
   },
   cancelTradeRequest(bookId) {
-    return Vue.http.patch(`${url}/api/trade/cancel`, { bookId: bookId })
+    return Vue.http.patch(`${url}/api/trade/cancel`, { bookId: bookId },{ headers: {
+      Authorization: `Bearer ${store.state.token}`
+    }})
       .then(onSuccess, onError);
   },
 }

@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import store from '../store';
 import config from '../config';
 
 const url = config.serverAddress;
@@ -20,11 +21,16 @@ export default {
     .then(onSuccess, onError);
   },
   getSettings(userId) {
-    return Vue.http.get(`${url}/api/settings/${userId}`)
+    console.log();
+    return Vue.http.get(`${url}/api/settings`, { headers: {
+      Authorization: `Bearer ${store.state.token}`
+    }})
     .then(onSuccess, onError);
   },
   postSettings(settings, userId) {
-    return Vue.http.post(`${url}/api/settings/${userId}`, { settings: settings })
+    return Vue.http.post(`${url}/api/settings`, { settings: settings }, { headers: {
+      Authorization: `Bearer ${store.state.token}`
+    }})
     .then(onSuccess, onError);
   }
 }
